@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
-
+import Spinner from './components/Spinner';
+import axios from 'axios';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -11,10 +12,33 @@ const commands = [
 
 class App extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      apiData: {}
+    }
+  }
 
+
+  hitQuery = (query) => {
+
+    console.log(query);
+    axios.post('http://localhost:3001/', {
+      sql: query
+    })
+    .then((apiData)=>{
+      console.log(apiData.data);
+      this.setState({apiData: apiData.data});
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
 
 
   render() {
+
+    const { apiData } = this.state;
+
     return (
 
       <Layout>
@@ -25,8 +49,8 @@ class App extends Component {
             {
               commands.map((command, index)=>{
                 return(
-                  <Menu.Item key={index} >
-                    <span className="nav-text">{command}</span>
+                  <Menu.Item key={index}  >
+                    <span onClick={()=>{this.hitQuery(command)}} className="nav-text">{command}</span>
                   </Menu.Item>
                 );
               })
@@ -42,14 +66,19 @@ class App extends Component {
 
            <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
              <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-               Really
-               <br />...<br />...<br />...<br />
-               long content
+
+                {apiData.success ? (
+                  <div>
+                    <h1>{apiData.verb.toString()}</h1>
+                    <p>{JSON.stringify(apiData.queryDSL, null, 4)}</p>
+                  </div>
+                ):(<Spinner />)}
+
              </div>
            </Content>
 
            <Footer style={{ textAlign: 'center' }}>
-             Ant Design ©2016 Created by Ant UED
+             ©2018 Created at CIC
            </Footer>
 
          </Layout>

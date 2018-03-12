@@ -4,7 +4,7 @@ const Spinner = () => {
 
     return(
 
-      <h1>Loading...</h1>
+      <h1>Please select a command from Sidebar</h1>
 
     );
 
