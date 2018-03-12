@@ -10,6 +10,10 @@ const commands = [
 ];
 
 class App extends Component {
+
+
+
+
   render() {
     return (
 
@@ -17,7 +21,7 @@ class App extends Component {
 
         <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+          <Menu theme="dark" mode="inline" >
             {
               commands.map((command, index)=>{
                 return(
