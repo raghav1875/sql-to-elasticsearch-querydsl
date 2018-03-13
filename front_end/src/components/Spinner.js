@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const Spinner = () => {
+const Spinner = ({ text }) => {
 
     return(
 
-      <h1>Please select a command from Sidebar</h1>
+      <h1>{text}</h1>
 
     );
 
